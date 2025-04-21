@@ -4,6 +4,7 @@ import torchvision.transforms as transforms
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
+from sklearn.metrics import accuracy_score
 
 from AnimalClassifier import AnimalClassifier
 from AnimalDataset import AnimalDataset
@@ -56,7 +57,7 @@ for epoch in range(EPOCHS):
             all_predictions.extend(predicted.cpu().numpy())
             all_labels.extend(labels.cpu().numpy())
 
-    accuracy = 100 * sum(int(np.array(all_predictions) == np.array(all_labels))) / len(all_labels)
+    accuracy = accuracy_score(all_labels, all_predictions) * 100
 
     print(f'Epoch [{epoch + 1}/{EPOCHS}]')
     print(f'Accuracy on test set: {accuracy:.2f}%')
